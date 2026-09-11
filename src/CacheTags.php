@@ -239,11 +239,11 @@ class CacheTags
      */
     protected function getSubqueryTablesFromBuilder($builder, SplObjectStorage $seen) : array
     {
-        if (! is_object($builder) || $seen->contains($builder)) {
+        if (! is_object($builder) || $seen->offsetExists($builder)) {
             return [];
         }
 
-        $seen->attach($builder);
+        $seen->offsetSet($builder);
 
         $tables = method_exists($builder, "getRelatedSubqueryTables")
             ? $builder->getRelatedSubqueryTables()
